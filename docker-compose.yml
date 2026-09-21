@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: spectrax
       POSTGRES_PASSWORD: spectrax
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - spectrax_postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -23,7 +23,7 @@ services:
     container_name: spectrax-redis
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "6380:6379"
     volumes:
       - spectrax_redis_data:/data
     healthcheck:
