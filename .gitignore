@@ -1,0 +1,88 @@
+# =========================
+# Environment & Secrets
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Python
+# =========================
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.pyo
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# =========================
+# Node / Next.js
+# =========================
+node_modules/
+.next/
+out/
+dist/
+
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# OS
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Local Storage
+# =========================
+storage/uploads/*
+storage/extracted/*
+storage/evidence/*
+storage/reports/*
+storage/temporary/*
+
+# Keep storage directories
+!storage/uploads/.gitkeep
+!storage/extracted/.gitkeep
+!storage/evidence/.gitkeep
+!storage/reports/.gitkeep
+!storage/temporary/.gitkeep
+
+# =========================
+# ML / Datasets
+# =========================
+ml/models/checkpoints/*
+ml/datasets/raw/*
+ml/datasets/processed/*
+
+# Keep dataset manifests
+!ml/datasets/**/manifests/
+!ml/datasets/**/manifests/*
+
+# =========================
+# Python test/cache files
+# =========================
+.coverage
+htmlcov/
+.pytest_cache/
+
+# =========================
+# Temporary files
+# =========================
+*.tmp
+*.temp
