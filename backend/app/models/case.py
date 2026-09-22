@@ -1,9 +1,9 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import DateTime, String, Text, func
+from sqlalchemy import DateTime, ForeignKey, String, Text, func
 from sqlalchemy.dialects.postgresql import UUID
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base
 
@@ -41,6 +41,13 @@ class Case(Base):
         server_default="created",
     )
 
+    created_by: Mapped[uuid.UUID | None] = mapped_column(
+        UUID(as_uuid=True),
+        ForeignKey("users.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         server_default=func.now(),
@@ -52,4 +59,21 @@ class Case(Base):
         server_default=func.now(),
         onupdate=func.now(),
         nullable=False,
+    )
+
+    creator = relationship(
+        "User",
+        back_populates="cases",
+    )
+
+    audit_logs = relationship(
+        "AuditLog",
+        back_populates="case",
+        cascade="all, delete-orphan",
+    )
+
+    media_assets = relationship(
+        "MediaAsset",
+        back_populates="case",
+        cascade="all, delete-orphan",
     )

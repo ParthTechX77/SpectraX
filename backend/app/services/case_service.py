@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import Case
 from app.schemas.case import CaseCreate
+from app.services.audit_service import create_audit_log
 
 
 def generate_case_number() -> str:
@@ -22,6 +23,20 @@ async def create_case(
     )
 
     db.add(case)
+
+    await db.flush()
+
+    await create_audit_log(
+        db,
+        action="CASE_CREATED",
+        case_id=case.id,
+        description="Investigation case created.",
+        details={
+            "case_number": case.case_number,
+            "title": case.title,
+        },
+    )
+
     await db.commit()
     await db.refresh(case)
 
