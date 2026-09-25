@@ -1,11 +1,18 @@
 import uuid
 from datetime import datetime
+from enum import Enum
 
 from sqlalchemy import DateTime, ForeignKey, String, Text, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base
+
+class CaseStatus(str, Enum):
+    CREATED = "created"
+    IN_PROGRESS = "in_progress"
+    COMPLETED = "completed"
+    ARCHIVED = "archived"
 
 
 class Case(Base):
@@ -34,11 +41,11 @@ class Case(Base):
         nullable=True,
     )
 
-    status: Mapped[str] = mapped_column(
+    status: Mapped[CaseStatus] = mapped_column(
         String(32),
         nullable=False,
-        default="created",
-        server_default="created",
+        default=CaseStatus.CREATED,
+        server_default=CaseStatus.CREATED.value,
     )
 
     created_by: Mapped[uuid.UUID | None] = mapped_column(

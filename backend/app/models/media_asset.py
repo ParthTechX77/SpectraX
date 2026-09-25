@@ -73,3 +73,16 @@ class MediaAsset(Base):
         back_populates="media_asset",
         cascade="all, delete-orphan",
     )
+
+    media_metadata = relationship(
+        "MediaMetadata",
+        back_populates="media_asset",
+        uselist=False,
+        cascade="all, delete-orphan",
+    )
+
+    frames = relationship(
+        "MediaFrame",
+        back_populates="media_asset",
+        cascade="all, delete-orphan",
+    )
