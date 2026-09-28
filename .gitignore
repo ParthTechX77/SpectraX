@@ -86,3 +86,16 @@ htmlcov/
 # =========================
 *.tmp
 *.temp
+
+# ML datasets
+datasets/
+**/datasets/
+
+# ML model/checkpoint files
+*.pth
+*.pt
+*.ckpt
+*.onnx
+
+# Backup/source temporary files
+*.bak
